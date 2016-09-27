@@ -1,13 +1,7 @@
-/**
- * Created by vzusko on 9/14/2016.
- */
 var gulp = require('gulp'),
     concatJS = require('gulp-concat'),
     concatCSS = require('gulp-concat-css'),
-    minifyCSS = require('gulp-minify-css'),
-    less= require('gulp-less'),
-    minifyJS=require('gulp-uglify'),
-    rename =  require('gulp-rename'),
+    less = require('gulp-less'),
     embedTemplates = require('gulp-angular-embed-templates');
 
 var path = {
@@ -19,7 +13,7 @@ var path = {
         css: ['app/**/*.less', 'app/**/*.css'],
         js: ['app/**/*.js', 'app/**/*.html']
     }
-}
+};
 gulp.task('css', function () {
     gulp.src(path.src.css)
         .pipe(less())
@@ -37,11 +31,12 @@ gulp.task('js', function () {
 
 });
 gulp.task('watch', function () {
-    gulp.watch(path.watch.css, function(){
+    gulp.watch(path.watch.css, function () {
         gulp.start('css')
     });
-    gulp.watch(path.watch.js, function(){
+    gulp.watch(path.watch.js, function () {
         gulp.start('js')
     })
-})
+});
+
 

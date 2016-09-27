@@ -1,0 +1,9 @@
+<form name="addTaskForm" ng-submit="submit(task,addTaskForm.$valid)">
+    <h4 align="center"> Enter task description</h4>
+    <div>
+        <textarea type="text" name="description" class="form-control" data-ng-model="task.description" required></textarea>
+    </div>
+    <div align="right">
+        <button type="submit" class="btn btn-primary" ng-disabled="addTaskForm.$invalid">submit</button>
+    </div>
+</form>
