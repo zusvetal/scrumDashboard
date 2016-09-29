@@ -1,8 +1,8 @@
 var cardCtrl = function ($scope, Card, $element, $compile) {
     var self = this,
-        taskTpl = '<div class="list-group-item list-group-item-info" ng-if="$ctrl.showTask"> {{$ctrl.description}}' +
+        taskTpl = '<div class="task list-group-item list-group-item-info" ng-if="$ctrl.showTask"> {{$ctrl.description}}' +
             '<button class="close" ng-click="removeTask()">' +
-            '<span class="glyphicon glyphicon-remove"></span>' +
+            '<span class="glyphicon glyphicon-remove remove"></span>' +
             '</button>' +
             '</div>';
     if (self.type === 'task') {
@@ -19,10 +19,7 @@ var cardCtrl = function ($scope, Card, $element, $compile) {
     Card.get({id: self.id})
         .$promise
         .then(function (card) {
-            self.description = card.description;
-            if(card.user){
-                self.owner = card.user.name;
-            }
+            angular.extend(self,card);
         });
 };
 angular.module('DashBoard')
