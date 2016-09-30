@@ -1,15 +1,18 @@
-var teamCtrl=function(Team){
-    var self=this;
-    Team.get({id: self.id})
-        .$promise
-        .then(function (team) {
-            angular.extend(self,team)
-        })
+var teamCtrl = function (Team) {
+    var self = this;
+    self.$routerOnActivate = function (next) {
+        var id = next.params.id;
+        Team.get({id: id})
+            .$promise
+            .then(function (team) {
+                angular.extend(self, team)
+            })
+    };
 }
 angular.module('DashBoard')
     .component('team', {
             bindings: {
-                id: '<'
+                $router: '<'
             },
             templateUrl: 'team.html',
             controller: teamCtrl

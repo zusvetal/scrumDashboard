@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <base href="/">
     <meta charset="UTF-8">
     <script src="/bower_components/angular/angular.min.js"></script>
     <script src="/bower_components/angular-resource/angular-resource.min.js"></script>
+    <!--<script src="/bower_components/angular-route/angular-route.min.js"></script>-->
+    <script src="/bower_components/angular-component-router/angular_1_router.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="/bower_components/ng-sortable/dist/ng-sortable.js"></script>
@@ -16,11 +19,6 @@
     <title>dashboard</title>
 </head>
 <body ng-app="DashBoard">
-<center><h1>Scrum dashboard</h1></center>
-<team id="1"></team>
-<!--<status-field id="1"></status-field>-->
-<!--<status-field id="2"></status-field>-->
-<!--<status-field id="3"></status-field>-->
-<!--<status-field id="4"></status-field>-->
+<team-list></team-list>
 </body>
 </html>
