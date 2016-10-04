@@ -4,7 +4,7 @@
         <div ng-show="$ctrl.addibleTask" ng-click="$ctrl.addTask()" align="center"><span class="glyphicon glyphicon-plus" ></span></div>
         <div ng-repeat="card in $ctrl.cards" as-sortable-item>
             <div as-sortable-item-handle>
-                <card id="card.id" cardstyle="$ctrl.cardStyle" type="$ctrl.itemType"></card>
+                <task id="card.id" cardstyle="$ctrl.cardStyle" type="$ctrl.itemType"></task>
             </div>
         </div>
     </div>

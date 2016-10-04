@@ -46,7 +46,6 @@ var statusFieldCtrl = function (StatusField, Card, AddTaskForm, BindingWithUser)
     StatusField.get({id: self.id})
         .$promise
         .then(function (statusField) {
-            console.log(statusField);
             angular.extend(self, statusField);
             self.cardStyle = defaultCardStyle;
             self.itemType = 'card';
