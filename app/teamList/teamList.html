@@ -1,7 +1,7 @@
 <!--<div class="row">-->
     <!--<div class="list-group col-lg-6 col-lg-offset-3">-->
         <!--<a ng-link="['Team',{id:team.id}]" class="list-group-item list-group-item-danger" align="center"-->
-           <!--ng-repeat="team in teams">-->
+           <!--ng-repeat="team in $ctrl.teams">-->
             <!--<h4>{{team.name}}</h4>-->
         <!--</a>-->
     <!--</div>-->
@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav link">
-                <li ng-repeat="team in teams">
+                <li ng-repeat="team in $ctrl.teams">
                     <a ng-link="['Team',{id:team.id}]">
                         <h4>{{team.name}}</h4>
                     </a>

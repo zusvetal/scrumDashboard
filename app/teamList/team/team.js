@@ -1,14 +1,3 @@
-var teamCtrl = function (Team) {
-    var self = this;
-    self.$routerOnActivate = function (next) {
-        var id = next.params.id;
-        Team.get({id: id})
-            .$promise
-            .then(function (team) {
-                angular.extend(self, team)
-            })
-    };
-}
 angular.module('DashBoard')
     .component('team', {
             bindings: {
@@ -18,10 +7,15 @@ angular.module('DashBoard')
             controller: teamCtrl
         }
     )
-    .factory('Team', ['$resource', 'apiServer', function ($resource, apiServer) {
-        return $resource(apiServer + '/teams/:id', {id: '@id'}, {
-            update: {
-                method: 'PUT'
-            }
-        });
-    }]);
+
+teamCtrl.$inject=['Team'];
+
+function teamCtrl (Team) {
+    var vm = this;
+    vm.$routerOnActivate = function (next) {
+        var id = next.params.id;
+        Team.get({id: id}).$promise.then(function (team) {
+                angular.extend(vm, team)
+            })
+    };
+}

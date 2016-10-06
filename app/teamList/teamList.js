@@ -6,10 +6,15 @@ angular.module('DashBoard')
     .component('teamList', {
             $routeConfig: [{path: '/team/:id', name: 'Team', component: 'team'}],
             templateUrl: 'teamList.html',
-            controller: 'TeamListCtrl'
+            controller: TeamListCtrl
         }
     )
-    .controller('TeamListCtrl', ['$scope', 'Team', function ($scope, Team) {
-        $scope.teams = Team.query();
-    }])
 
+
+TeamListCtrl.$inject=['$scope','Team'];
+
+function TeamListCtrl($scope, Team){
+    var vm = this;
+
+    vm.teams = Team.query();
+}
