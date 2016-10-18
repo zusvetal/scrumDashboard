@@ -1,21 +1,28 @@
 angular.module('DashBoard')
+    .config(function ($stateProvider) {
+        $stateProvider
+            .state('team.dashboard', {
+                url: '/dashboard',
+                template: '<dashboard></dashboard>',
+            })
+            .state('team.users', {
+                url: '/users',
+                template: '<users></users>',
+            })
+            .state('team.settings', {
+                url: '/settings',
+                template: '<team-settings></team-settings>',
+            })
+    })
     .component('team', {
-            bindings: {
-                $router: '<'
-            },
             templateUrl: 'team.html',
             controller: teamCtrl
         }
     )
 
-teamCtrl.$inject=['Team'];
+teamCtrl.$inject = ['$stateParams'];
 
-function teamCtrl (Team) {
+function teamCtrl($stateParams) {
     var vm = this;
-    vm.$routerOnActivate = function (next) {
-        var id = next.params.id;
-        Team.get({id: id}).$promise.then(function (team) {
-                angular.extend(vm, team)
-            })
-    };
+    vm.id = $stateParams.id;
 }

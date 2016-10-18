@@ -1,18 +1,18 @@
 angular.module('DashBoard')
     .component('statusField', {
-            bindings: {
-                id: '<'
-            },
-            templateUrl: 'statusField.html',
-            controller: statusFieldCtrl
-        })
+        bindings: {
+            id: '<'
+        },
+        templateUrl: 'statusField.html',
+        controller: statusFieldCtrl
+    })
 
-statusFieldCtrl.$inject=['StatusField', 'Card', 'addTaskForm', 'bindingWithUser'];
+statusFieldCtrl.$inject = ['StatusField', 'Card', 'addTaskForm', 'bindingWithUser'];
 
-function statusFieldCtrl (StatusField, Card, addTaskForm, bindingWithUser) {
+function statusFieldCtrl(StatusField, Card, addTaskForm, bindingWithUser) {
     var vm = this;
 
-    vm.addibleTask=false;
+    vm.addibleTask = false;
     vm.addTask = function () {
         addTaskForm(vm.id)
             .then(function (card) {
@@ -22,9 +22,9 @@ function statusFieldCtrl (StatusField, Card, addTaskForm, bindingWithUser) {
 
     activate();
 
-    /////////////////////
+    ////////////////////////////////////////////////////
 
-    function activate(){
+    function activate() {
         return StatusField.get({id: vm.id}).$promise.then(function (statusField) {
             vm.itemType = statusField.item_type.name;
             vm.cardStyle = statusField.style_class ?
@@ -52,24 +52,23 @@ function statusFieldCtrl (StatusField, Card, addTaskForm, bindingWithUser) {
     function actionAfterItemMoved(eventObj) {
         var card = eventObj.source.itemScope.card,
             idDestStatusField = eventObj.dest.sortableScope.$parent.$ctrl.id,
-            moveSuccess = function () {
-            },
             moveFailure = function () {
                 eventObj.source.itemScope.sortableScope.insertItem(eventObj.source.index, eventObj.source.itemScope.modelValue);
                 eventObj.dest.sortableScope.removeItem(eventObj.dest.index);
             };
+
         if (vm.name === "BackLog") {
-            bindingWithUser(card.id).then(function (user) {
-                    cardMoveToStatusField(idDestStatusField, card.id)
-                        .then(function () {
-                            /*TODO refactor*/
-                            window.location.reload();
-                        })
+            bindingWithUser(card.id)
+                .then(function () {
+                    return cardMoveToStatusField(idDestStatusField, card.id)
                 },
                 function () {
                     moveFailure();
-                }
-            )
+                })
+                .then(function () {
+                    /*TODO refactor*/
+                    window.location.reload();
+                })
         } else {
             cardMoveToStatusField(idDestStatusField, card.id);
         }

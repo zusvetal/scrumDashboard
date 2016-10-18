@@ -8,7 +8,7 @@ function bindingWithUser($uibModal) {
         var settings = {
             animation: true,
             templateUrl: 'bind_with_user.html',
-            controller: 'BindingWithUserCtrl',
+            controller: bindingWithUserCtrl,
             controllerAs: '$ctrl',
             resolve: {
                 idCard: function () {

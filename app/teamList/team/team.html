@@ -1,8 +1,10 @@
-<div id="scrumBoard">
-    <center><h1>Scrum dashboard</h1></center>
-    <status-field id="1"></status-field>
-    <div ng-repeat="statusField in $ctrl.status_fields">
-        <status-field id="statusField.id"></status-field>
+<div id="teamSection">
+    <div align="center">
+        <a ui-sref="team.dashboard" class="btn btn-danger">Dashboard</a>
+        <a ui-sref="team.users" class="btn btn-info">Users</a>
+        <a ui-sref="team.settings" class="btn btn-success">Settings</a>
     </div>
-    <status-field id="4"></status-field>
+    <div ui-view>
+        <dashboard id-team="$ctrl.id"></dashboard>
+    </div>
 </div>
