@@ -1,0 +1,20 @@
+<div id="teamUsers">
+    <div align="center"><h4>Users</h4></div>
+    <div class="row">
+        <div class="col-lg-4 col-lg-offset-4">
+            <form name="addTeamMember" data-ng-submit="$ctrl.addTeamMember(addTeamMember.$valid)">
+                <input type="text" name="name" class="form-control" placeholder="Enter new team member" data-ng-model="$ctrl.user.name" autofocus required>
+            </form>
+            <br/>
+            <div class="list-group">
+                <div class="list-group-item field-item" data-ng-repeat="user in $ctrl.users">
+                    {{user.name}}
+                    <!--<span class="glyphicon glyphicon-remove remove-field" data-ng-click="$ctrl.removeStatusField($index)"-->
+                    <!--data-ng-if="field.removable"></span>-->
+                    <!--<span class="glyphicon glyphicon-edit edit-field" data-ng-click="$ctrl.editStatusField($index)"></span>-->
+                </div>
+                <!--<edit-field id="field.id" show="field.edit" data-ng-repeat-end></edit-field>-->
+            </div>
+        </div>
+    </div>
+</div>

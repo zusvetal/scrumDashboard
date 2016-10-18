@@ -7,7 +7,7 @@ angular.module('DashBoard')
             })
             .state('team.users', {
                 url: '/users',
-                template: '<users></users>',
+                template: '<team-users></team-users>',
             })
             .state('team.settings', {
                 url: '/settings',

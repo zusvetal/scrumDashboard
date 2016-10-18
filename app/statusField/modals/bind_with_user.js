@@ -1,7 +1,7 @@
 angular.module('DashBoard')
-    .factory('bindingWithUser',bindingWithUser)
+    .factory('bindingWithUser', bindingWithUser)
 
-bindingWithUser.$inject=['$uibModal']
+bindingWithUser.$inject = ['$uibModal']
 
 function bindingWithUser($uibModal) {
     return function (idCard) {
@@ -20,12 +20,13 @@ function bindingWithUser($uibModal) {
     }
 }
 
-bindingWithUserCtrl.$inject=['$scope', '$uibModalInstance', 'idCard', 'Card', 'User']
+bindingWithUserCtrl.$inject = ['$uibModalInstance', 'idCard', 'Card', 'User']
 
-function bindingWithUserCtrl($scope, $uibModalInstance, idCard, Card, User) {
-    var vm=this,
+function bindingWithUserCtrl($uibModalInstance, idCard, Card, User) {
+    var vm = this,
         card = new Card();
-    vm.users = User.query();
+
+    vm.user = [];
     vm.cancel = function () {
         $uibModalInstance.dismiss();
     };
@@ -33,8 +34,21 @@ function bindingWithUserCtrl($scope, $uibModalInstance, idCard, Card, User) {
         if (isvalid) {
             card.user_id = user.id;
             card.$update({id: idCard}).then(function () {
-                    $uibModalInstance.close(user);
-                })
+                $uibModalInstance.close(user);
+            })
         }
     }
+
+    activate();
+
+    //////////////////////////////////////////////////////
+
+    function activate() {
+        Card.get({id: idCard}).$promise.then(function (card) {
+                var idTeam = card.status_field.team.id;
+
+                vm.users = User.getFromTeam({id: idTeam})
+            })
+    }
+
 }
