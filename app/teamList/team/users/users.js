@@ -3,7 +3,7 @@ angular.module('DashBoard')
             templateUrl: 'users.html',
             controller: teamUsersCtrl
         }
-    )
+    );
 
 teamUsersCtrl.$inject = ['User', '$stateParams'];
 
@@ -13,6 +13,9 @@ function teamUsersCtrl(User, $stateParams) {
     vm.idTeam = $stateParams.id;
     vm.users=[];
     vm.addTeamMember=addTeamMember;
+    vm.editTeamMember=editTeamMember;
+    vm.removeTeamMember=removeTeamMember;
+
 
     activate();
 
@@ -34,5 +37,18 @@ function teamUsersCtrl(User, $stateParams) {
         });
 
         vm.user = {};
+    }
+
+    function editTeamMember(index) {
+        vm.users[index].edit = (vm.users[index].edit) ? false : true;
+    }
+
+    function removeTeamMember(index) {
+        var idUser = vm.users[index].id;
+        if(confirm('Do you really want to delete team member')){
+            User.delete({id: idUser}).$promise.then(function () {
+                vm.users.splice(index, 1);
+            })
+        }
     }
 }

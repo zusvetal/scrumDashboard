@@ -1,5 +1,5 @@
 <div id="dashboard">
-    <div  ng-repeat="statusField in $ctrl.status_fields">
+    <div  ng-repeat="statusField in $ctrl.statusFields | orderBy:'position'">
         <status-field id="statusField.id"></status-field>
     </div>
 </div>

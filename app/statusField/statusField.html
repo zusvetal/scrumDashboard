@@ -1,7 +1,9 @@
 <div class="status-field col-md-3">
     <div class="status-field-heading">{{$ctrl.name}}</div>
     <div class="status-field-body" as-sortable="$ctrl.statusFieldOption" data-ng-model="$ctrl.cards">
-        <div ng-show="$ctrl.addibleTask" ng-click="$ctrl.addTask()" align="center"><span class="glyphicon glyphicon-plus" ></span></div>
+        <div class="add-task" ng-show="$ctrl.addibleTask" >
+            <span class="glyphicon glyphicon-plus" data-ng-click="$ctrl.addTask()" uib-tooltip="Add new team"></span>
+        </div>
         <div ng-repeat="card in $ctrl.cards" as-sortable-item>
             <div as-sortable-item-handle>
                 <card id="card.id" cardstyle="$ctrl.cardStyle" type="$ctrl.itemType"></card>

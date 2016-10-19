@@ -1,3 +1,23 @@
 #teamUsers {
-  margin-top: 50px
+  margin-top: 50px;
+
+  .item:hover .edit-user,
+  .item:hover .remove-user {
+    display: inline;
+  }
+
+  .item .edit-user,
+  .item .remove-user {
+    display: none;
+    color: #ccc;
+    cursor: pointer;
+    float: right;
+    margin-left: 5px;
+    font-size: 16px;
+
+  }
+  .edit-user:hover,
+  .remove-user:hover {
+    color: #000;
+  }
 }

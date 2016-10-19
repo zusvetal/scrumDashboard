@@ -5,9 +5,9 @@ angular.module('DashBoard')
         }
     )
 
-dashboardCtrl.$inject = ['Team', '$stateParams'];
+dashboardCtrl.$inject = ['StatusField', '$stateParams'];
 
-function dashboardCtrl(Team, $stateParams) {
+function dashboardCtrl(StatusField, $stateParams) {
     var vm = this;
 
     vm.idTeam=$stateParams.id;
@@ -17,8 +17,9 @@ function dashboardCtrl(Team, $stateParams) {
     /////////////////////////////////////
 
     function activate() {
-        return Team.get({id: vm.idTeam}).$promise.then(function (team) {
-            angular.extend(vm, team)
+        return StatusField.getFromTeam({id: vm.idTeam}).$promise.then(function (statusFields) {
+            vm.statusFields=statusFields;
+            console.log(statusFields);
         })
     }
 }

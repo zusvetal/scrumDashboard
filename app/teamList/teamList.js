@@ -12,15 +12,19 @@ angular.module('DashBoard')
     )
 
 
-TeamListCtrl.$inject = ['$scope', 'Team', 'addTeamForm','teamStatusFields'];
+TeamListCtrl.$inject = ['$scope', 'Team', 'addTeamForm', 'teamStatusFields'];
 
 function TeamListCtrl($scope, Team, addTeamForm, teamStatusFields) {
     var vm = this;
 
     vm.teams = Team.query();
-    vm.addTeam = function () {
-        addTeamForm().then(function(team){
-           return teamStatusFields(team.id);
+    vm.addTeam = addTeam;
+
+    ////////////////////////////////////////////
+
+    function addTeam() {
+        addTeamForm().then(function (team) {
+            return teamStatusFields(team.id);
         })
     }
 }

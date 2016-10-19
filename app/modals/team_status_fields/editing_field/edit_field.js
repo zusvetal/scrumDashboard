@@ -16,9 +16,11 @@ function editFieldCtrl(StatusField) {
 
     StatusField.get({id: vm.id}).$promise.then(function (field) {
         vm.field = {
+            id: field.id,
             name: field.name,
-            id: field.id
+            position:field.position
         };
+        console.log(field);
     })
     vm.submit = function (isvalid) {
         if (!isvalid) return false;
