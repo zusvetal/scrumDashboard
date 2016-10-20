@@ -1,10 +1,33 @@
 <div id="teamSection">
-    <div align="center">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav link">
+                    <li>
+                        <a ui-sref="teamList">
+                            <span class="glyphicon glyphicon-home"></span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a ui-sref="logout">
+                            logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="header-team">
+        <h2 class="title-team">{{$ctrl.team.name}}</h2>
+    </div>
+    <div class="nav-team">
         <a ui-sref="team.dashboard" class="btn btn-danger">Dashboard</a>
         <a ui-sref="team.users" class="btn btn-info">Users</a>
         <a ui-sref="team.settings" class="btn btn-success">Settings</a>
     </div>
     <div ui-view>
-        <dashboard id-team="$ctrl.id"></dashboard>
+        <dashboard id-team="$ctrl.team.id"></dashboard>
     </div>
 </div>

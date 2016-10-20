@@ -4,14 +4,17 @@ angular.module('DashBoard')
             .state('team.dashboard', {
                 url: '/dashboard',
                 template: '<dashboard></dashboard>',
+                requiredLogin: true
             })
             .state('team.users', {
                 url: '/users',
                 template: '<team-users></team-users>',
+                requiredLogin: true
             })
             .state('team.settings', {
                 url: '/settings',
                 template: '<team-settings></team-settings>',
+                requiredLogin: true
             })
     })
     .component('team', {
@@ -20,9 +23,11 @@ angular.module('DashBoard')
         }
     )
 
-teamCtrl.$inject = ['$stateParams'];
+teamCtrl.$inject = ['$stateParams', 'Team'];
 
-function teamCtrl($stateParams) {
-    var vm = this;
-    vm.id = $stateParams.id;
+function teamCtrl($stateParams, Team) {
+    var vm = this,
+        idTeam = $stateParams.id;
+
+    vm.team = Team.get({id: idTeam});
 }

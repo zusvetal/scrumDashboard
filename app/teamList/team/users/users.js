@@ -24,7 +24,6 @@ function teamUsersCtrl(User, $stateParams) {
     function activate() {
         User.getFromTeam({id:vm.idTeam }).$promise.then(function (users) {
             vm.users=users;
-            console.log(users)
         })
     }
 

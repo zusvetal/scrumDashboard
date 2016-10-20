@@ -1,0 +1,30 @@
+<div id="loginPage">
+    <div class="row">
+        <div class=" col-md-offset-4 col-md-4 ">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputUsername" class="col-sm-4 control-label">Username</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="inputUsername" placeholder="Username" data-ng-model="$ctrl.user">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword" class="col-sm-4 control-label">Password</label>
+                    <div class="col-sm-6">
+                        <input type="password" class="form-control" id="inputPassword" placeholder="Password" data-ng-model="$ctrl.password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-8">
+                        <button type="submit" class="btn btn-default btn-block btn-primary" data-ng-click="$ctrl.logIn()">Log In</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <center>
+                        <div class="info-field">{{$ctrl.warning}}</div>
+                    </center>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

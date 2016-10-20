@@ -19,7 +19,6 @@ function dashboardCtrl(StatusField, $stateParams) {
     function activate() {
         return StatusField.getFromTeam({id: vm.idTeam}).$promise.then(function (statusFields) {
             vm.statusFields=statusFields;
-            console.log(statusFields);
         })
     }
 }

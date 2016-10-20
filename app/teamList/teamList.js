@@ -1,9 +1,16 @@
 angular.module('DashBoard')
     .config(function ($stateProvider) {
-        $stateProvider.state('team', {
-            url: '/team/:id',
-            template: '<team></team>'
-        })
+        $stateProvider
+            .state('team', {
+                url: '/team/:id',
+                template: '<team></team>',
+                requiredLogin: true
+            })
+            .state('teamList', {
+                url: '/',
+                template: '<team-list></team-list>',
+                requiredLogin: true
+            })
     })
     .component('teamList', {
             templateUrl: 'teamList.html',
