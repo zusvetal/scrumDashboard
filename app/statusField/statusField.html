@@ -1,12 +1,12 @@
 <div class="status-field col-md-3">
-    <div class="status-field-heading">{{$ctrl.name}}</div>
-    <div class="status-field-body" as-sortable="$ctrl.statusFieldOption" data-ng-model="$ctrl.cards">
+    <div class="status-field-heading">{{$ctrl.field.name}}</div>
+    <div class="status-field-body" as-sortable="$ctrl.statusFieldOption" data-ng-model="$ctrl.localCards.byStatus[$ctrl.field.id]">
         <div class="add-task" ng-show="$ctrl.addibleTask" >
             <span class="glyphicon glyphicon-plus" data-ng-click="$ctrl.addTask()" uib-tooltip="Add new team"></span>
         </div>
-        <div ng-repeat="card in $ctrl.cards" as-sortable-item>
+        <div ng-repeat="card in $ctrl.localCards.byStatus[$ctrl.field.id]" as-sortable-item>
             <div as-sortable-item-handle>
-                <card id="card.id" cardstyle="$ctrl.cardStyle" type="$ctrl.itemType"></card>
+                <card card="card" id="card.id" cardstyle="$ctrl.cardStyle" type="$ctrl.itemType"></card>
             </div>
         </div>
     </div>

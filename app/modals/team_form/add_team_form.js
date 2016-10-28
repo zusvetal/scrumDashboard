@@ -1,7 +1,7 @@
 angular.module('DashBoard')
-    .factory('addTeamForm',addTeamForm)
+    .factory('addTeamForm', addTeamForm)
 
-addTeamForm.$inject=['$uibModal']
+addTeamForm.$inject = ['$uibModal']
 
 function addTeamForm($uibModal) {
     return function () {
@@ -15,20 +15,19 @@ function addTeamForm($uibModal) {
     }
 }
 
-addTeamFormCtrl.$inject=['$uibModalInstance','Team']
+addTeamFormCtrl.$inject = ['$uibModalInstance', 'localTeams']
 
-function addTeamFormCtrl($uibModalInstance, Team) {
-    var vm = this,
-        team = new Team();
+function addTeamFormCtrl($uibModalInstance, localTeams) {
+    var vm = this;
 
-    vm.submit = function (param, isvalid) {
-        if (isvalid) {
-            team.name = param.name;
-            team.$save().then(function (team) {
-                    $uibModalInstance.close(team);
-                }
-            )
-        }
+    vm.newTeam = {};
+
+    vm.submit = function (isValid) {
+        if (!isValid) return false;
+
+        localTeams.save(vm.newTeam).then(function (team) {
+            $uibModalInstance.close(team);
+        });
     }
 }
 

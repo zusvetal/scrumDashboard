@@ -1,7 +1,7 @@
 angular.module('DashBoard')
-    .factory('addTaskForm',addTaskForm)
+    .factory('addTaskForm', addTaskForm)
 
-addTaskForm.$inject=['$uibModal']
+addTaskForm.$inject = ['$uibModal']
 
 function addTaskForm($uibModal) {
     return function (idStatusField) {
@@ -20,23 +20,22 @@ function addTaskForm($uibModal) {
     }
 }
 
-addTaskFormCtrl.$inject=['$scope', '$uibModalInstance', 'idStatusField', 'Card']
+addTaskFormCtrl.$inject = ['$uibModalInstance', 'idStatusField', 'localCards']
 
-function addTaskFormCtrl($scope, $uibModalInstance, idStatusField, Card) {
-    var vm = this,
-        card = new Card();
+function addTaskFormCtrl($uibModalInstance, idStatusField, localCards) {
+    var vm = this;
 
-    vm.submit = function (param, isvalid) {
-        if (isvalid) {
-            card.status_field_id = idStatusField;
-            for (var prop in param) {
-                card[prop] = param[prop];
-            }
-            card.$save().then(function (card) {
-                    $uibModalInstance.close(card);
-                }
-            )
-        }
+    vm.newCard = {};
+
+    vm.submit = function (isValid) {
+        if (!isValid)  return false;
+
+        vm.newCard.status_field_id = idStatusField;
+
+        localCards.save(vm.newCard).then(function () {
+            $uibModalInstance.close(vm.newCard);
+            vm.newCard = {}
+        });
     }
 }
 

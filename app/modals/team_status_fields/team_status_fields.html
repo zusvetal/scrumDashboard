@@ -1,6 +1,6 @@
 <div id="statusFields">
     <div class="modal-header">
-        <h3 class="modal-title" align="center"><b>{{$ctrl.team.name}}</b></h3>
+        <h3 class="modal-title" align="center"><b>{{$ctrl.teams.byId[$ctrl.idTeam].name}}</b></h3>
         <h4 class="modal-title" align="center">Dashboard status fields</h4>
     </div>
     <div class="modal-body">
@@ -9,12 +9,12 @@
         </form>
         <br/>
         <div class="list-group">
-            <div class="list-group-item field-item" data-ng-repeat-start="field in $ctrl.statusFields" data-ng-class="{'list-group-item-success':field.edit}">
+            <div class="list-group-item field-item" data-ng-repeat-start="field in $ctrl.statusFields.byTeam[$ctrl.idTeam]" data-ng-class="{'list-group-item-success':field.edit}">
                 {{field.name}}
-                <span class="glyphicon glyphicon-remove remove-field" data-ng-click="$ctrl.removeStatusField($index)" data-ng-if="field.removable"></span>
-                <span class="glyphicon glyphicon-edit edit-field" data-ng-click="$ctrl.editStatusField($index)" ></span>
+                <span class="glyphicon glyphicon-remove remove-field" data-ng-click="$ctrl.removeStatusField(field)" data-ng-if="field.removable"></span>
+                <span class="glyphicon glyphicon-edit edit-field" data-ng-click="$ctrl.editStatusField(field)" ></span>
             </div>
-            <edit-field id="field.id" show="field.edit" data-ng-repeat-end  ></edit-field>
+            <edit-field field="field"  show="field.edit" data-ng-repeat-end  ></edit-field>
         </div>
     </div>
     <div class="modal-footer">

@@ -20,62 +20,48 @@ function teamStatusFields($uibModal) {
     }
 }
 
-teamStatusFieldsCtrl.$inject = ['$uibModalInstance', 'StatusField', 'Team', 'idTeam', 'addMainField']
+teamStatusFieldsCtrl.$inject = ['$uibModalInstance', 'idTeam', 'addMainField', 'localStatusFields', 'localTeams']
 
-function teamStatusFieldsCtrl($uibModalInstance, StatusField, Team, idTeam, addMainField) {
+function teamStatusFieldsCtrl($uibModalInstance, idTeam, addMainField, localStatusFields, localTeams) {
     var vm = this;
 
     vm.field = {};
     vm.statusFields = {};
-    vm.team = Team.get({id: idTeam});
+    vm.idTeam = idTeam;
+    vm.statusFields = localStatusFields;
+    vm.teams = localTeams;
     vm.addStatusField = addStatusField;
     vm.editStatusField = editStatusField;
     vm.removeStatusField = removeStatusField;
-    vm.finishEditStatusFields=finishEditStatusFields;
+    vm.finishEditStatusFields = finishEditStatusFields;
 
-    activate();
+    vm.$onInit = function () {
+        localStatusFields.$promise.then(function () {
+            if (!localStatusFields.byTeam[idTeam]) {
+                return addMainField(idTeam);
+            }
+
+        });
+    };
 
 ///////////////////////////////////////////
-    function activate() {
-        StatusField.getFromTeam({id: idTeam}).$promise
-            .then(function (statusFields) {
-                if (statusFields.length === 0) {
-                    return addMainField(idTeam);
-                }
-                vm.statusFields = statusFields;
-            })
-            .then(function () {
-                return StatusField.getFromTeam({id: idTeam});
-            })
-            .then(function (statusFields) {
-                    vm.statusFields = statusFields;
-                }
-            )
-    }
 
-    function addStatusField(isvalid) {
-        if (!isvalid) return false;
+    function addStatusField(isValid) {
+        if (!isValid) return false;
 
         vm.field.team_id = idTeam;
-        StatusField.save(vm.field).$promise.then(function (statusField) {
-            vm.statusFields.push(statusField);
-        });
-
+        localStatusFields.save(vm.field);
         vm.field = {};
     }
 
-    function editStatusField(index) {
-        vm.statusFields[index].edit = (vm.statusFields[index].edit) ? false : true;
+    function editStatusField(field) {
+        field.edit = (field.edit) ? false : true;
     }
 
-    function removeStatusField(index) {
-        var idStatusField = vm.statusFields[index].id;
-
-        StatusField.delete({id: idStatusField}).$promise.then(function () {
-            vm.statusFields.splice(index, 1);
-        })
+    function removeStatusField(field) {
+        localStatusFields.delete(field);
     }
-    
+
     function finishEditStatusFields() {
         $uibModalInstance.close();
     }

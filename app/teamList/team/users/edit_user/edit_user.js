@@ -1,7 +1,7 @@
 angular.module('DashBoard')
     .component('editUser', {
             bindings: {
-                id: '<',
+                user: '<',
                 show: '='
             },
             templateUrl: 'edit_user.html',
@@ -9,26 +9,15 @@ angular.module('DashBoard')
         }
     )
 
-editUserCtrl.$inject = ['User'];
+editUserCtrl.$inject = [];
 
-function editUserCtrl(User) {
+function editUserCtrl() {
     var vm = this;
 
-    User.get({id: vm.id}).$promise.then(function (user) {
-        vm.user = {
-            id: user.id,
-            name: user.name,
-            second_name:user.second_name,
-            position:user.position
-        };
-    })
-    vm.submit = function (isvalid) {
-        if (!isvalid) return false;
+    vm.submit = function (isValid) {
+        if (!isValid) return false;
 
-        var user = new User();
-
-        angular.extend(user, vm.user);
-        user.$update().then(function (user) {
+        vm.user.$update().then(function () {
             vm.show = false;
         })
     }

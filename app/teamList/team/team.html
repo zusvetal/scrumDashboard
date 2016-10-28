@@ -20,7 +20,7 @@
         </div>
     </nav>
     <div class="header-team">
-        <h2 class="title-team">{{$ctrl.team.name}}</h2>
+        <h2 class="title-team">{{$ctrl.teams[$ctrl.idTeam].name}}</h2>
     </div>
     <div class="nav-team">
         <a ui-sref="team.dashboard" class="btn btn-danger">Dashboard</a>
@@ -28,6 +28,6 @@
         <a ui-sref="team.settings" class="btn btn-success">Settings</a>
     </div>
     <div ui-view>
-        <dashboard id-team="$ctrl.team.id"></dashboard>
+        <dashboard></dashboard>
     </div>
 </div>

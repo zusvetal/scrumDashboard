@@ -1,16 +1,14 @@
 angular.module('DashBoard')
     .component('cardRegular', {
             require:{
-                card:'^card'
+                parent:'^card'
             },
             templateUrl: 'card_regular.html',
             controller: cardRegularCtrl
         }
     );
 
-cardRegularCtrl.$inject = ['Card']
+cardRegularCtrl.$inject = [];
 
-function cardRegularCtrl(Card) {
-    var vm = this;
-    vm.showTask = true;
+function cardRegularCtrl() {
 }

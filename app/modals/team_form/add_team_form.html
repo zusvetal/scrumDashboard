@@ -1,9 +1,9 @@
-<form name="addTeamForm" ng-submit="$ctrl.submit(team,addTeamForm.$valid)">
+<form name="addTeamForm" ng-submit="$ctrl.submit(addTeamForm.$valid)">
     <div class="modal-header">
         <h4 class="modal-title" align="center">Team</h4>
     </div>
     <div class="modal-body">
-        <input type="text" name="name" class="form-control" data-ng-model="team.name" required>
+        <input type="text" name="name" class="form-control" data-ng-model="$ctrl.newTeam.name" required>
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-primary" ng-disabled="addTeamForm.$invalid">submit</button>

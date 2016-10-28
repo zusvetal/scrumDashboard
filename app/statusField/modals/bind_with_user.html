@@ -3,9 +3,7 @@
         <h4 class="modal-title"> Choose team member</h4>
     </div>
     <div class="modal-body">
-        <select class="form-control" ng-model="$ctrl.selectedUser" ng-options="user.name for user in $ctrl.users" required>
-            <!--<option value="user.id" ng-repeat="user in users">{{user.name}}</option>-->
-        </select>
+        <select class="form-control" ng-model="$ctrl.selectedUser" ng-options="user.name for user in $ctrl.users.byTeam[$ctrl.idTeam]" required></select>
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-primary"  ng-disabled="choosingUser.$invalid">submit</button>

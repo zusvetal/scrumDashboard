@@ -5,13 +5,13 @@ angular.module('DashBoard')
         }
     )
 
-teamSettingsCtrl.$inject = ['Team', '$stateParams', '$window', 'teamStatusFields'];
+teamSettingsCtrl.$inject = ['localTeams', '$stateParams', '$window', 'teamStatusFields'];
 
-function teamSettingsCtrl(Team, $stateParams, $window, teamStatusFields) {
+function teamSettingsCtrl(localTeams, $stateParams, $window, teamStatusFields) {
     var vm = this;
     vm.idTeam = $stateParams.id;
     vm.removeTeam = function () {
-        Team.delete({id: vm.idTeam}).$promise.then(function () {
+        localTeams.delete(localTeams.byId[vm.idTeam]).then(function () {
             $window.location = '/';
         })
     }

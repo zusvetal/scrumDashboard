@@ -23,11 +23,12 @@ angular.module('DashBoard')
         }
     )
 
-teamCtrl.$inject = ['$stateParams', 'Team'];
+teamCtrl.$inject = ['$stateParams', 'localTeams'];
 
-function teamCtrl($stateParams, Team) {
-    var vm = this,
-        idTeam = $stateParams.id;
+function teamCtrl($stateParams, localTeams) {
+    var vm = this;
 
-    vm.team = Team.get({id: idTeam});
+    vm.idTeam = $stateParams.id;
+    vm.teams = localTeams.byId;
+
 }

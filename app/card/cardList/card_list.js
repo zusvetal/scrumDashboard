@@ -1,21 +1,19 @@
 angular.module('DashBoard')
     .component('cardList', {
             require:{
-                card:'^card'
+                parent:'^card'
             },
             templateUrl: 'card_list.html',
             controller: cardListCtrl
         }
     );
 
-cardListCtrl.$inject = ['Card']
+cardListCtrl.$inject = ['localCards'];
 
-function cardListCtrl(Card) {
+function cardListCtrl(localCards) {
     var vm = this;
-    vm.showTask = true;
-    vm.removeTask = function () {
-        Card.delete({id: vm.id}).$promise.then(function () {
-            vm.showTask = false;
-        });
+
+    vm.removeCard= function () {
+        localCards.delete(vm.parent.card)
     };
 }

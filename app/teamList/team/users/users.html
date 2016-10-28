@@ -3,17 +3,19 @@
     <div class="row">
         <div class="col-lg-4 col-lg-offset-4">
             <form name="addTeamMember" data-ng-submit="$ctrl.addTeamMember(addTeamMember.$valid)">
-                <input type="text" name="name" class="form-control" placeholder="Enter new team member name" data-ng-model="$ctrl.user.name" autofocus required>
+                <input type="text" name="name" class="form-control" placeholder="Enter new team member name" data-ng-model="$ctrl.newUser.name" autofocus required>
             </form>
             <br/>
             <div class="list-group">
-                <div class="list-group-item item" data-ng-repeat-start="user in $ctrl.users" data-ng-class="{'list-group-item-success':user.edit}">
+                <div class="list-group-item item" data-ng-repeat-start="user in $ctrl.users.byTeam[$ctrl.idTeam]" data-ng-class="{'list-group-item-success':user.edit}">
                     {{user.name}}
-                    <span class="glyphicon glyphicon-remove remove-user" data-ng-click="$ctrl.removeTeamMember($index)"></span>
-                    <span class="glyphicon glyphicon-edit edit-user" data-ng-click="$ctrl.editTeamMember($index)"></span>
+                    <span class="glyphicon glyphicon-remove remove-user" data-ng-click="$ctrl.removeTeamMember(user)"></span>
+                    <span class="glyphicon glyphicon-edit edit-user" data-ng-click="$ctrl.editTeamMember(user)"></span>
                 </div>
-                <edit-user id="user.id" show="user.edit" data-ng-repeat-end></edit-user>
+                <edit-user user="user" show="user.edit" data-ng-repeat-end></edit-user>
             </div>
         </div>
     </div>
 </div>
+
+

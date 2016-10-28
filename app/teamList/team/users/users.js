@@ -5,49 +5,42 @@ angular.module('DashBoard')
         }
     );
 
-teamUsersCtrl.$inject = ['User', '$stateParams'];
+teamUsersCtrl.$inject = ['localUsers', '$stateParams'];
 
-function teamUsersCtrl(User, $stateParams) {
+function teamUsersCtrl(localUsers, $stateParams) {
     var vm = this;
 
     vm.idTeam = $stateParams.id;
-    vm.users=[];
-    vm.addTeamMember=addTeamMember;
-    vm.editTeamMember=editTeamMember;
-    vm.removeTeamMember=removeTeamMember;
+    vm.newUser = {};
+    vm.users = {};
+    vm.addTeamMember = addTeamMember;
+    vm.editTeamMember = editTeamMember;
+    vm.removeTeamMember = removeTeamMember;
 
-
-    activate();
+    vm.$onInit = function () {
+        vm.users = localUsers;
+    };
 
     //////////////////////////////////////////////////////////////////////////////
 
-    function activate() {
-        User.getFromTeam({id:vm.idTeam }).$promise.then(function (users) {
-            vm.users=users;
-        })
-    }
 
     function addTeamMember(isvalid) {
         if (!isvalid) return false;
 
-        vm.user.team_id = vm.idTeam;
-        User.save(vm.user).$promise.then(function (user) {
-            vm.users.push(user);
-        });
+        vm.newUser.team_id = vm.idTeam;
+        localUsers.save(vm.newUser);
 
-        vm.user = {};
+        vm.newUser = {};
     }
 
-    function editTeamMember(index) {
-        vm.users[index].edit = (vm.users[index].edit) ? false : true;
+    function editTeamMember(user) {
+        user.edit = (user.edit) ? false : true;
     }
 
-    function removeTeamMember(index) {
-        var idUser = vm.users[index].id;
+    function removeTeamMember(user) {
+
         if(confirm('Do you really want to delete team member')){
-            User.delete({id: idUser}).$promise.then(function () {
-                vm.users.splice(index, 1);
-            })
+            localUsers.delete(user);
         }
     }
 }

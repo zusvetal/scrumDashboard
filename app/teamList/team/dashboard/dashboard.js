@@ -5,20 +5,21 @@ angular.module('DashBoard')
         }
     )
 
-dashboardCtrl.$inject = ['StatusField', '$stateParams'];
+dashboardCtrl.$inject = ['localStatusFields', '$stateParams', 'Card'];
 
-function dashboardCtrl(StatusField, $stateParams) {
+function dashboardCtrl(localStatusFields, $stateParams) {
     var vm = this;
 
-    vm.idTeam=$stateParams.id;
+    vm.idTeam = $stateParams.id;
 
-    activate();
+    vm.$onInit = function () {
 
-    /////////////////////////////////////
+        localStatusFields.$promise.then(function(){
 
-    function activate() {
-        return StatusField.getFromTeam({id: vm.idTeam}).$promise.then(function (statusFields) {
-            vm.statusFields=statusFields;
-        })
+            vm.statusFields = localStatusFields.getFromTeam(vm.idTeam);
+        });
     }
+
+    console.log(localStatusFields);
 }
+

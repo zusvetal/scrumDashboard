@@ -1,9 +1,9 @@
-<form name="addTaskForm" ng-submit="$ctrl.submit(task,addTaskForm.$valid)">
+<form name="addTaskForm" ng-submit="$ctrl.submit(addTaskForm.$valid)">
     <div class="modal-header">
         <h4 class="modal-title" align="center"> Enter task description</h4>
     </div>
     <div class="modal-body">
-        <textarea type="text" name="description" class="form-control" data-ng-model="task.description"
+        <textarea type="text" name="description" class="form-control" data-ng-model="$ctrl.newCard.description"
                   required></textarea>
     </div>
     <div class="modal-footer">

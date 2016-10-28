@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav link">
-                <li ng-repeat="team in $ctrl.teams">
+                <li ng-repeat="team in $ctrl.teams.byId">
                     <a ui-sref="team({id:team.id})">
                         {{team.name}}
                     </a>

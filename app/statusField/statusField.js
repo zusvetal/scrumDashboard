@@ -1,76 +1,75 @@
 angular.module('DashBoard')
     .component('statusField', {
         bindings: {
-            id: '<'
+            field: '<'
         },
         templateUrl: 'statusField.html',
         controller: statusFieldCtrl
     })
 
-statusFieldCtrl.$inject = ['StatusField', 'Card', 'addTaskForm', 'bindingWithUser'];
+statusFieldCtrl.$inject = ['localStatusFields', 'addTaskForm', 'bindingWithUser', 'localCards'];
 
-function statusFieldCtrl(StatusField, Card, addTaskForm, bindingWithUser) {
+function statusFieldCtrl(localStatusFields, addTaskForm, bindingWithUser, localCards) {
     var vm = this;
 
     vm.addibleTask = false;
     vm.addTask = function () {
-        addTaskForm(vm.id)
-            .then(function (card) {
-                vm.cards.push(card);
-            })
+        addTaskForm(vm.field.id);
     };
 
-    activate();
+    vm.$onInit = function () {
+        vm.itemType = vm.field.item_type.name;
 
-    ////////////////////////////////////////////////////
+        vm.cardStyle = vm.field.style_class ?
+            vm.field.style_class.name :
+            vm.field.item_type.default_style_class;
 
-    function activate() {
-        return StatusField.get({id: vm.id}).$promise.then(function (statusField) {
-            vm.itemType = statusField.item_type.name;
-            vm.cardStyle = statusField.style_class ?
-                statusField.style_class.name :
-                statusField.item_type.default_style_class;
+        if (vm.field.name === "BackLog") {
+            vm.addibleTask = true;
+        }
 
-            if (statusField.name === "BackLog") {
-                vm.addibleTask = true;
-            }
+        localCards.$promise.then(function () {
+            if(!localCards.byStatus[vm.field.id]) localCards.byStatus[vm.field.id]=[];
+        })
 
-            angular.extend(vm, statusField);
+        vm.localCards=localCards;
 
-            vm.statusFieldOption = {
-                itemMoved: actionAfterItemMoved
-            };
-        });
-    }
+        vm.statusFieldOption = {
+            itemMoved: actionAfterItemMoved
+        };
+    };
 
-    function cardMoveToStatusField(idDestStatusField, idCard) {
-        var card = new Card();
+    //////////////////////////////////////////////////////
+
+    function cardMoveToStatusField(idDestStatusField, card) {
         card.status_field_id = idDestStatusField;
-        return card.$update({id: idCard});
+        return card.$update({id: card.id});
     }
 
     function actionAfterItemMoved(eventObj) {
         var card = eventObj.source.itemScope.card,
-            idDestStatusField = eventObj.dest.sortableScope.$parent.$ctrl.id,
-            moveFailure = function () {
-                eventObj.source.itemScope.sortableScope.insertItem(eventObj.source.index, eventObj.source.itemScope.modelValue);
-                eventObj.dest.sortableScope.removeItem(eventObj.dest.index);
-            };
+            idDestStatusField = eventObj.dest.sortableScope.$parent.$ctrl.field.id;
 
-        if (vm.name === "BackLog") {
-            bindingWithUser(card.id)
+            console.log(card, idDestStatusField);
+
+        if (vm.field.name === "BackLog") {
+            bindingWithUser(card)
                 .then(function () {
-                    return cardMoveToStatusField(idDestStatusField, card.id)
-                },
-                function () {
-                    moveFailure();
-                })
-                .then(function () {
-                    /*TODO refactor*/
-                    window.location.reload();
-                })
+                        return cardMoveToStatusField(idDestStatusField, card)
+                    },
+                    function () {
+                        moveFailure();
+                    })
         } else {
-            cardMoveToStatusField(idDestStatusField, card.id);
+            cardMoveToStatusField(idDestStatusField, card);
+        }
+
+
+        ////////////////////////////////////////////////////////
+
+        function moveFailure (){
+            eventObj.source.itemScope.sortableScope.insertItem(eventObj.source.index, eventObj.source.itemScope.modelValue);
+            eventObj.dest.sortableScope.removeItem(eventObj.dest.index);
         }
     }
 }
