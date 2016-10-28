@@ -26,6 +26,7 @@
 -    2.4.2 Block moving to "BackLog".
      2.4.3 "Done" field not draggable (Or not drag from "Done").   
 +  2.5 Implement status field order.
+-  2.6 Optimize of space under number of status fields.
     
 3. Cards
   3.1 Implement different template for card:

@@ -13,10 +13,8 @@ function statusFieldCtrl(localStatusFields, addTaskForm, bindingWithUser, localC
     var vm = this;
 
     vm.addibleTask = false;
-    vm.addTask = function () {
-        addTaskForm(vm.field.id);
-    };
-
+    vm.width = getWidthOfField();
+    vm.addTask = addTask;
     vm.$onInit = function () {
         vm.itemType = vm.field.item_type.name;
 
@@ -29,10 +27,10 @@ function statusFieldCtrl(localStatusFields, addTaskForm, bindingWithUser, localC
         }
 
         localCards.$promise.then(function () {
-            if(!localCards.byStatus[vm.field.id]) localCards.byStatus[vm.field.id]=[];
+            if (!localCards.byStatus[vm.field.id]) localCards.byStatus[vm.field.id] = [];
         })
 
-        vm.localCards=localCards;
+        vm.localCards = localCards;
 
         vm.statusFieldOption = {
             itemMoved: actionAfterItemMoved
@@ -40,6 +38,10 @@ function statusFieldCtrl(localStatusFields, addTaskForm, bindingWithUser, localC
     };
 
     //////////////////////////////////////////////////////
+
+    function addTask(){
+        addTaskForm(vm.field.id);
+    }
 
     function cardMoveToStatusField(idDestStatusField, card) {
         card.status_field_id = idDestStatusField;
@@ -50,7 +52,7 @@ function statusFieldCtrl(localStatusFields, addTaskForm, bindingWithUser, localC
         var card = eventObj.source.itemScope.card,
             idDestStatusField = eventObj.dest.sortableScope.$parent.$ctrl.field.id;
 
-            console.log(card, idDestStatusField);
+        console.log(card, idDestStatusField);
 
         if (vm.field.name === "BackLog") {
             bindingWithUser(card)
@@ -67,9 +69,15 @@ function statusFieldCtrl(localStatusFields, addTaskForm, bindingWithUser, localC
 
         ////////////////////////////////////////////////////////
 
-        function moveFailure (){
+        function moveFailure() {
             eventObj.source.itemScope.sortableScope.insertItem(eventObj.source.index, eventObj.source.itemScope.modelValue);
             eventObj.dest.sortableScope.removeItem(eventObj.dest.index);
         }
+    }
+
+    function getWidthOfField() {
+        var statusFieldCount = localStatusFields.byTeam[vm.field.team_id].length,
+            width = 100 / statusFieldCount;
+        return width+'%';
     }
 }

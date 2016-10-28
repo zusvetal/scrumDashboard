@@ -13,13 +13,7 @@ function dashboardCtrl(localStatusFields, $stateParams) {
     vm.idTeam = $stateParams.id;
 
     vm.$onInit = function () {
-
-        localStatusFields.$promise.then(function(){
-
-            vm.statusFields = localStatusFields.getFromTeam(vm.idTeam);
-        });
-    }
-
-    console.log(localStatusFields);
+        vm.statusFields = localStatusFields;
+    };
 }
 

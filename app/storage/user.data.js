@@ -39,9 +39,7 @@ function localUsers(User, $filter) {
             self.byId[user.id] = user;
             addToByTeamField(user);
 
-
-
-            return card;
+            return user;
         });
     };
 
