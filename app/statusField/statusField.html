@@ -2,7 +2,7 @@
     <div class="status-field-heading">{{$ctrl.field.name}}</div>
     <div class="status-field-body" as-sortable="$ctrl.statusFieldOption" data-ng-model="$ctrl.localCards.byStatus[$ctrl.field.id]">
         <div class="add-task" ng-show="$ctrl.addibleTask" >
-            <span class="glyphicon glyphicon-plus" data-ng-click="$ctrl.addTask()" uib-tooltip="Add new team"></span>
+            <span class="glyphicon glyphicon-plus" data-ng-click="$ctrl.addTask()" uib-tooltip="Add new task"></span>
         </div>
         <div ng-repeat="card in $ctrl.localCards.byStatus[$ctrl.field.id]" as-sortable-item>
             <div as-sortable-item-handle>

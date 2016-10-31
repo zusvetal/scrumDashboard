@@ -50,10 +50,10 @@ function statusFieldCtrl(localStatusFields, addTaskForm, bindingWithUser, localC
 
     function actionAfterItemMoved(eventObj) {
         var card = eventObj.source.itemScope.card,
-            idDestStatusField = eventObj.dest.sortableScope.$parent.$ctrl.field.id;
+            idDestStatusField = eventObj.dest.sortableScope.$parent.$ctrl.field.id,
+            nameDestStatusField = eventObj.dest.sortableScope.$parent.$ctrl.field.name;
 
-        console.log(card, idDestStatusField);
-
+        if(nameDestStatusField === "BackLog") moveFailure();
         if (vm.field.name === "BackLog") {
             bindingWithUser(card)
                 .then(function () {

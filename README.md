@@ -23,10 +23,10 @@
 +  2.3 Add task to "Backlog" field.
   2.4 Action after Drag and Drop:
 +    2.4.1 After moving from "Backlog" assign task to user of team.
--    2.4.2 Block moving to "BackLog".
++    2.4.2 Block moving to "BackLog".
      2.4.3 "Done" field not draggable (Or not drag from "Done").   
 +  2.5 Implement status field order.
--  2.6 Optimize of space under number of status fields.
++  2.6 Optimize of space under number of status fields.
     
 3. Cards
   3.1 Implement different template for card:
@@ -35,8 +35,7 @@
      3.1.2 Card-list:
 +          3.1.2.1 Delete card
   3.2
- 
- /***************** New ***************************/
-4. Authorization
-    4.1 Login form
-    4.2 Token auth
+
++ 4. Authorization
++    4.1 Login form
++    4.2 Token auth
